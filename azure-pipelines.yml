@@ -20,6 +20,23 @@ steps:
     tasks: 'assembleDebug test'
   displayName: gradlew assembleDebug test
 
+- task: DownloadSecureFile@1
+  name: mySecureFile # The name with which to reference the secure file's path on the agent, like $(mySecureFile.secureFilePath)
+  inputs:
+    secureFile: my-release-key.keystore # The file name or GUID of the secure file
+    #retryCount: 5 # Optional
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk' 
+    apksign: true
+    apksignerKeystoreFile: 'my-release-key.keystore'
+    apksignerKeystorePassword: 'android'
+    apksignerKeystoreAlias: 'alias_name'
+    apksignerKeyPassword: 'android'
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
+    zipalign: true
+
 - task: CopyFiles@2
   inputs:
     contents: '**/*.apk'
