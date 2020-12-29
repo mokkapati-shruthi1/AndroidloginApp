@@ -26,17 +26,6 @@ steps:
     secureFile: my-release-key.keystore # The file name or GUID of the secure file
     #retryCount: 5 # Optional
 
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk' 
-    apksign: true
-    apksignerKeystoreFile: 'my-release-key.keystore'
-    apksignerKeystorePassword: 'android'
-    apksignerKeystoreAlias: 'alias_name'
-    apksignerKeyPassword: 'android'
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/app-debug.apk
-    zipalign: false
-
 - task: CopyFiles@2
   inputs:
     contents: '**/*.apk'
@@ -55,6 +44,17 @@ steps:
   inputs:
     secureFile: api-8006220769294135392-953327-b00b09f1271e.json # The file name or GUID of the secure file
     #retryCount: 5 # Optional
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk' 
+    apksign: true
+    apksignerKeystoreFile: 'my-release-key.keystore'
+    apksignerKeystorePassword: 'android'
+    apksignerKeystoreAlias: 'alias_name'
+    apksignerKeyPassword: 'android'
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/app-debug.apk
+    zipalign: false
   
 - task: GooglePlayRelease@3
   inputs:
