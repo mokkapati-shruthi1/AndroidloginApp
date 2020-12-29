@@ -34,7 +34,7 @@ steps:
     apksignerKeystorePassword: 'android'
     apksignerKeystoreAlias: 'alias_name'
     apksignerKeyPassword: 'android'
-    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/my-crazy-app.release.apk
+    apksignerArguments: --out $(Build.SourcesDirectory)/app/build/outputs/apk/release/app-debug.apk
     zipalign: false
 
 - task: CopyFiles@2
